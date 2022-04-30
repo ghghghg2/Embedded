@@ -18,12 +18,13 @@ void que_init(queue_t *que)
     que->head_index = 0;
     que->tail_index = 0;
     que->sum = 0;
+    for (int i = 0; i < MAX_QUEUE_LEN; i++) {
+        que->data[i] = 0;
+    }
 }
 
 void enque_element(queue_t *que, QType val) 
 {
-    que->data[que->head_index] = val;
-    incr_head_index(que);
     if (que->curr_len < MAX_QUEUE_LEN) { 
         que->curr_len++;
         #ifdef SUM_QUEUE
@@ -36,6 +37,8 @@ void enque_element(queue_t *que, QType val)
         #endif
         incr_tail_index(que);
     }
+    que->data[que->head_index] = val;
+    incr_head_index(que);
 }
 
 QType deque_element(queue_t *que) 
